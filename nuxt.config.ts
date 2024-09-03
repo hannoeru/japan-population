@@ -41,6 +41,6 @@ export default defineNuxtConfig({
   // https://hub.nuxt.com/docs/getting-started/installation#options
   hub: {
     // https://hub.nuxt.com/docs/features/cache
-    cache: true
-  }
+    cache: true,
+  },
 })
