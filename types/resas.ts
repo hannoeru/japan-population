@@ -25,4 +25,3 @@ export interface PopulationCompositionData {
   year: number
   value: number
 }
-

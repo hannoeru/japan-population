@@ -1,28 +1,28 @@
-import { fetchTotalPopulation } from '../utils/resas';
-import { Population } from '~~/types/api';
-import { toArray } from '@antfu/eslint-config';
+import { toArray } from '@antfu/eslint-config'
+import { fetchPopulation } from '../utils/resas'
+import type { Population } from '~~/types/api'
 
 export default defineCachedEventHandler(async (event) => {
   const query = getQuery<{
-    prefCode: string | string[]
-  }>(event);
+    prefCodes: string | string[]
+  }>(event)
 
-  if (!query.prefCode) {
+  if (!query.prefCodes) {
     throw createError({
       statusCode: 400,
-      statusMessage: "prefCode is required"
+      statusMessage: 'prefCode is required',
     })
   }
 
-  const prefCode = toArray(query.prefCode)
+  const prefCodes = toArray(query.prefCodes)
 
   const results: Population[] = []
 
-  for (const code of prefCode) {
-    const totalPopulation = await fetchTotalPopulation(event, code)
+  for (const code of prefCodes) {
+    const population = await fetchPopulation(event, code)
     results.push({
-      prefCode: code,
-      data: totalPopulation
+      prefCode: Number(code),
+      data: population,
     })
   }
 

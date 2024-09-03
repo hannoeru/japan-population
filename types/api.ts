@@ -1,6 +1,6 @@
-import type { PopulationCompositionData } from "./resas"
+import type { PopulationComposition } from './resas'
 
 export interface Population {
-  prefCode: string
-  data: PopulationCompositionData[]
+  prefCode: number
+  data: PopulationComposition[]
 }
