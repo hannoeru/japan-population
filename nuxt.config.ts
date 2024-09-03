@@ -37,4 +37,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     resasApiKey: '',
   },
+
+  // https://hub.nuxt.com/docs/getting-started/installation#options
+  hub: {
+    // https://hub.nuxt.com/docs/features/cache
+    cache: true
+  }
 })

@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.0.0",
+    "@antfu/utils": "^0.7.10",
     "@nuxt/eslint": "^0.5.5",
     "@nuxt/test-utils": "^3.14.1",
     "@nuxthub/core": "^0.7.9",
