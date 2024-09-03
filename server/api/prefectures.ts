@@ -1,5 +1,5 @@
 import type { H3Event } from 'h3'
-import { PrefecturesResponse } from '~~/types/resas'
+import type { PrefecturesResponse } from '~~/types/resas'
 
 export default defineCachedEventHandler(async (event) => {
   const resasClient = useResasClient(event)
@@ -9,5 +9,5 @@ export default defineCachedEventHandler(async (event) => {
   group: 'api',
   name: 'prefectures',
   maxAge: 60 * 60, // 1 hour
-  getKey: (event: H3Event) => event.path
+  getKey: (event: H3Event) => JSON.stringify(getQuery(event)),
 })
