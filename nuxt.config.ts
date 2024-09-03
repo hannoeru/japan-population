@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxt/eslint',
+    '@nuxt/test-utils/module',
     '@nuxthub/core',
   ],
 
