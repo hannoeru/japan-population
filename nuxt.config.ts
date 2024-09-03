@@ -31,5 +31,10 @@ export default defineNuxtConfig({
     config: {
       standalone: false,
     },
-  }
+  },
+
+  // https://nuxt.com/docs/api/nuxt-config#runtimeconfig-1
+  runtimeConfig: {
+    resasApiKey: '',
+  },
 })

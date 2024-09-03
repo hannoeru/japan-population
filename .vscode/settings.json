@@ -40,5 +40,8 @@
     "yaml"
   ],
   "iconify.annotations": true,
-  "iconify.inplace": true
+  "iconify.inplace": true,
+  "cSpell.words": [
+    "resas"
+  ]
 }
