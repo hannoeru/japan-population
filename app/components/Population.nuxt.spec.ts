@@ -1,69 +1,49 @@
-import { describe, expect, it } from 'vitest'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Population from './Population.vue'
 
+// Mock the useLocalStorage composable
+vi.mock('#imports', () => ({
+  useLocalStorage: vi.fn(() => ({ value: '総人口' })),
+}))
+
+// Stub global components
+const globalComponentStubs = {
+  PopulationTypeSelect: true,
+  PopulationChart: true,
+  Suspense: true,
+}
+
 describe('population', () => {
-  const mockPrefectures = [
-    { prefCode: 1, prefName: 'Hokkaido' },
-    { prefCode: 2, prefName: 'Aomori' },
-  ]
-  const mockSelectedPrefectures = [1]
-
-  it('renders correctly', async () => {
-    const wrapper = await mountSuspended(Population, {
+  it('renders correctly with selected prefectures', () => {
+    const wrapper = mount(Population, {
       props: {
-        prefectures: mockPrefectures,
-        selectedPrefectures: mockSelectedPrefectures,
+        prefectures: [{ prefCode: 1, prefName: 'Tokyo' }],
+        selectedPrefectures: [1],
       },
       global: {
-        stubs: {
-          PopulationChart: true,
-        },
+        stubs: globalComponentStubs,
       },
     })
 
-    expect(wrapper.html()).toContain('総人口推移グラフ')
-    expect(wrapper.findAll('button')).toHaveLength(4)
+    expect(wrapper.find('h2').text()).toBe('総人口推移グラフ')
+    expect(wrapper.findComponent({ name: 'PopulationTypeSelect' }).exists()).toBe(true)
+    expect(wrapper.text()).not.toContain('都道府県を選択してください')
   })
 
-  it('displays all population options', async () => {
-    const wrapper = await mountSuspended(Population, {
+  it('shows message when no prefectures are selected', () => {
+    const wrapper = mount(Population, {
       props: {
-        prefectures: mockPrefectures,
-        selectedPrefectures: mockSelectedPrefectures,
+        prefectures: [],
+        selectedPrefectures: [],
       },
       global: {
-        stubs: {
-          PopulationChart: true,
-        },
+        stubs: globalComponentStubs,
       },
     })
 
-    const buttons = wrapper.findAll('button')
-    expect(buttons[0]?.text()).toBe('総人口')
-    expect(buttons[1]?.text()).toBe('年少人口')
-    expect(buttons[2]?.text()).toBe('生産年齢人口')
-    expect(buttons[3]?.text()).toBe('老年人口')
-  })
-
-  it('selects the correct population target', async () => {
-    const wrapper = await mountSuspended(Population, {
-      props: {
-        prefectures: mockPrefectures,
-        selectedPrefectures: mockSelectedPrefectures,
-      },
-      global: {
-        stubs: {
-          PopulationChart: true,
-        },
-      },
-    })
-
-    const buttons = wrapper.findAll('button')
-    await buttons[1]?.trigger('click')
-
-    // @ts-expect-error missing types on close method
-    expect(wrapper.vm.selectedPopulationTarget.value).toBe('年少人口')
+    expect(wrapper.find('h2').text()).toBe('総人口推移グラフ')
+    expect(wrapper.text()).toContain('都道府県を選択してください')
+    expect(wrapper.findComponent({ name: 'PopulationChart' }).exists()).toBe(false)
   })
 })

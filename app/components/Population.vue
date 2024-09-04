@@ -6,12 +6,10 @@ defineProps<{
   selectedPrefectures: number[]
 }>()
 
-const populationOptions = ['総人口', '年少人口', '生産年齢人口', '老年人口']
-const selectedPopulationTarget = useLocalStorage('app-selected-population-target', '総人口')
-
-function handleSelect(value: string) {
-  selectedPopulationTarget.value = value
-}
+const selectedPopulationType = useLocalStorage('app-selected-population-type', '総人口', {
+  // prevent hydration mismatch error
+  initOnMounted: true,
+})
 </script>
 
 <template>
@@ -21,18 +19,23 @@ function handleSelect(value: string) {
         総人口推移グラフ
       </h2>
     </header>
-    <div class="sm:px-4">
-      <div class="grid grid-cols-2 mb-6 gap-2">
-        <button
-          v-for="option of populationOptions" :key="option" :class="{
-            'btn': selectedPopulationTarget === option,
-            'btn-secondary': selectedPopulationTarget !== option,
-          }" @click="handleSelect(option)"
-        >
-          {{ option }}
-        </button>
-      </div>
+    <PopulationTypeSelect v-model:selected="selectedPopulationType" />
+    <div
+      v-if="!selectedPrefectures.length"
+      class="h-100 flex flex-col items-center justify-center text-gray-4"
+    >
+      都道府県を選択してください
     </div>
-    <PopulationChart :prefectures="prefectures" :selected-prefectures="selectedPrefectures" :selected-population-target="selectedPopulationTarget" />
+    <Suspense v-else>
+      <PopulationChart
+        :prefectures="prefectures" :selected-prefectures="selectedPrefectures" :selected-population-type="selectedPopulationType"
+      />
+      <template #fallback>
+        <div class="h-100 flex flex-col items-center justify-center text-gray-4">
+          <span class="i-ph-person-arms-spread mb-3 animate-bounce text-3xl" />
+          <p>読み込み中...</p>
+        </div>
+      </template>
+    </Suspense>
   </section>
 </template>
