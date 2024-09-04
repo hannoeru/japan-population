@@ -5,23 +5,6 @@ import { Line } from 'vue-chartjs'
 import { Chart as ChartJS } from 'chart.js'
 import Chart from './Chart.vue'
 
-vi.mock('chart.js', () => ({
-  Chart: {
-    register: vi.fn(),
-    defaults: {
-      color: '#000',
-    },
-  },
-  CategoryScale: vi.fn(),
-  LinearScale: vi.fn(),
-  PointElement: vi.fn(),
-  LineElement: vi.fn(),
-  Title: vi.fn(),
-  Tooltip: vi.fn(),
-  Legend: vi.fn(),
-  Colors: vi.fn(),
-}))
-
 // Create a hoisted mock for useDark
 const { useColorModeMock } = vi.hoisted(() => {
   return {
@@ -30,6 +13,17 @@ const { useColorModeMock } = vi.hoisted(() => {
     }),
   }
 })
+
+vi.mock('vue-chartjs', () => ({
+  Line: defineComponent({
+    name: 'Line',
+    props: {
+      data: Object,
+      options: Object,
+    },
+    template: '<div />',
+  }),
+}))
 
 // Mock useDark composable using mockNuxtImport
 mockNuxtImport('useColorMode', () => {
@@ -106,11 +100,6 @@ describe('chart', () => {
         data: mockData,
         options: mockOptions,
       },
-      global: {
-        stubs: {
-          Line: true,
-        },
-      },
     })
 
     expect(ChartJS.defaults.color).toBe('#FFF')
@@ -127,11 +116,6 @@ describe('chart', () => {
       props: {
         data: mockData,
         options: mockOptions,
-      },
-      global: {
-        stubs: {
-          Line: true,
-        },
       },
     })
 
