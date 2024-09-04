@@ -1,4 +1,12 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: '都道府県別人口推移グラフ',
+  description: '都道府県別の人口推移グラフを表示するサイトです',
+  ogTitle: '都道府県別人口推移グラフ',
+  ogDescription: '都道府県別の人口推移グラフを表示するサイトです',
+  twitterCard: 'summary',
+})
+
 const { data: prefectures } = await useFetch('/api/prefectures')
 
 if (!prefectures.value) {
@@ -29,7 +37,7 @@ const selectedPrefectures = computed<number[]>({
   <main class="mx-auto max-w-3xl p-6 pt-10 space-y-6 md:p-8">
     <header>
       <h1 class="h1">
-        都道府県別の総人口推移グラフ
+        都道府県別人口推移グラフ
       </h1>
     </header>
     <PrefectureSelects v-model:selected="selectedPrefectures" :prefectures="prefectures!" />

@@ -19,7 +19,7 @@ describe('indexPage', () => {
     })
 
     // Check if the main title is rendered
-    expect(wrapper.find('h1').text()).toBe('都道府県別の総人口推移グラフ')
+    expect(wrapper.find('h1').text()).toBe('都道府県別人口推移グラフ')
 
     // Check if PrefectureSelects stub is rendered
     expect(wrapper.findComponent({ name: 'PrefectureSelects' }).exists()).toBe(true)

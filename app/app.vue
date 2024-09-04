@@ -3,6 +3,9 @@ useHead({
   htmlAttrs: {
     lang: 'ja',
   },
+  link: [
+    { rel: 'icon', href: '/favicon.ico' },
+  ],
 })
 </script>
 
