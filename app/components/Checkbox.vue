@@ -3,8 +3,6 @@ const props = defineProps<{
   label: string
   id: string
   value: number | string
-  indeterminate: boolean
-  disabled: boolean
 }>()
 const model = defineModel()
 </script>
