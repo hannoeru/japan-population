@@ -36,6 +36,9 @@ importers:
       '@nuxthub/core':
         specifier: ^0.7.9
         version: 0.7.9(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.21.2)(vite@5.4.2(@types/node@22.5.2)(terser@5.31.6))
+      '@nuxtjs/color-mode':
+        specifier: ^3.4.4
+        version: 3.4.4(magicast@0.3.5)(rollup@4.21.2)
       '@unocss/eslint-config':
         specifier: ^0.62.3
         version: 0.62.3(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
@@ -1002,6 +1005,9 @@ packages:
 
   '@nuxthub/core@0.7.9':
     resolution: {integrity: sha512-0MGgSHZMO0bUc0ZUbwtklIDJ4HeK+BSkqaRMeSE/EpUP3zFhbrzniPkw5wT8jlwtld0FSMspEyW3N6xoggXVhg==}
+
+  '@nuxtjs/color-mode@3.4.4':
+    resolution: {integrity: sha512-VSNJVGnRIjiGmfbMa0cN+rwNRowDRTL/wku/z5MpKSanVo3khIRitBNqNviso1l3T+LW0pLHeXBNp6L8g/l1EA==}
 
   '@one-ini/wasm@0.1.1':
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
@@ -5861,6 +5867,17 @@ snapshots:
       - supports-color
       - uWebSockets.js
       - vite
+
+  '@nuxtjs/color-mode@3.4.4(magicast@0.3.5)(rollup@4.21.2)':
+    dependencies:
+      '@nuxt/kit': 3.13.0(magicast@0.3.5)(rollup@4.21.2)
+      pathe: 1.1.2
+      pkg-types: 1.2.0
+      semver: 7.6.3
+    transitivePeerDependencies:
+      - magicast
+      - rollup
+      - supports-color
 
   '@one-ini/wasm@0.1.1': {}
 

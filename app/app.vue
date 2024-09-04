@@ -4,7 +4,6 @@ useHead({
     lang: 'ja',
   },
 })
-useDark()
 </script>
 
 <template>

@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/test-utils/module',
     '@nuxthub/core',
+    '@nuxtjs/color-mode',
   ],
 
   // https://devtools.nuxt.com/guide/getting-started
@@ -42,5 +43,10 @@ export default defineNuxtConfig({
   hub: {
     // https://hub.nuxt.com/docs/features/cache
     cache: true,
+  },
+
+  // https://color-mode.nuxtjs.org
+  colorMode: {
+    classSuffix: '',
   },
 })
