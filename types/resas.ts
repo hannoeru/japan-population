@@ -24,4 +24,5 @@ export interface PopulationComposition {
 export interface PopulationCompositionData {
   year: number
   value: number
+  rate?: number
 }
