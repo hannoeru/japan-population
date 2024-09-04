@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`appFooter > matches snapshot 1`] = `"<footer class="flex items-center justify-center gap-3 p-6 pb-8 text-lg"><button title="Toggle Dark Mode"><span class="i-ph-sun-duotone dark:i-ph-moon-stars-duotone flex"></span></button><a href="https://github.com/hannoeru/japan-population" target="_blank" title="GitHub Source Code"><span class="i-ph-github-logo-duotone flex"></span></a></footer>"`;
