@@ -66,6 +66,9 @@ importers:
       nuxt:
         specifier: ^3.13.0
         version: 3.13.0(@parcel/watcher@2.4.1)(@types/node@22.5.2)(eslint@9.9.1(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.21.2)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.2)(terser@5.31.6))(vue-tsc@2.1.4(typescript@5.5.4))
+      playwright-core:
+        specifier: ^1.46.1
+        version: 1.46.1
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -8969,8 +8972,7 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
 
-  playwright-core@1.46.1:
-    optional: true
+  playwright-core@1.46.1: {}
 
   pluralize@8.0.0: {}
 

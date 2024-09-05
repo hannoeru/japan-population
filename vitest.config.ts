@@ -6,7 +6,7 @@ const ignoreMessages = [
 
 export default defineVitestConfig({
   test: {
-    environment: 'nuxt',
+    clearMocks: true,
     onConsoleLog(log) {
       if (ignoreMessages.some(message => log.includes(message))) {
         return false
