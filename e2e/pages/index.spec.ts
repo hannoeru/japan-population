@@ -1,8 +1,6 @@
-import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { createPage, setup } from '@nuxt/test-utils/e2e'
-import type { Chart, ChartData } from 'chart.js'
-import type { NuxtPage } from 'nuxt/schema'
+import type { ChartData } from 'chart.js'
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
