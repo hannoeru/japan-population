@@ -1,10 +1,16 @@
 <script setup lang="ts">
+const config = useRuntimeConfig().public
 useSeoMeta({
   title: '都道府県別人口推移グラフ',
   description: '都道府県別の人口推移グラフを表示するサイトです',
   ogTitle: '都道府県別人口推移グラフ',
   ogDescription: '都道府県別の人口推移グラフを表示するサイトです',
-  twitterCard: 'summary',
+  ogImage: '/og-image.png',
+  ogUrl: config.siteUrl,
+  twitterTitle: '都道府県別人口推移グラフ',
+  twitterDescription: '都道府県別の人口推移グラフを表示するサイトです',
+  twitterImage: '/og-image.png',
+  twitterCard: 'summary_large_image',
 })
 
 const { data: prefectures } = await useFetch('/api/prefectures')
@@ -40,7 +46,7 @@ const selectedPrefectures = computed<number[]>({
         都道府県別人口推移グラフ
       </h1>
     </header>
-    <PrefectureSelects :prefectures="prefectures!" v-model:selected="selectedPrefectures" />
+    <PrefectureSelects v-model:selected="selectedPrefectures" :prefectures="prefectures!" />
     <Population :selected-prefectures="selectedPrefectures" />
   </main>
 </template>
