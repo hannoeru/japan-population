@@ -22,6 +22,15 @@ export function usePopulationChart(
         },
       },
     },
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          usePointStyle: true,
+          pointStyle: 'circle',
+        },
+      },
+    },
   }
 
   const data = computed<ChartData<'line'>>(() => ({
