@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // https://nuxt.com/docs/api/nuxt-config#compatibilitydate
-  compatibilityDate: '2024-04-03',
+  compatibilityDate: '2024-08-14',
 
   // https://nuxt.com/docs/api/nuxt-config#future
   future: {
@@ -57,6 +57,11 @@ export default defineNuxtConfig({
     rollupConfig: {
       // prevent external dependencies from being bundled
       external: ['@antfu/eslint-config'],
+    },
+    routeRules: {
+      '/': {
+        prerender: true,
+      },
     },
   },
 })
