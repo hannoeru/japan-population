@@ -20,6 +20,13 @@ export function usePopulationChart(
           display: true,
           text: '人口数',
         },
+        ticks: {
+          callback: (value) => {
+            const num = Number(value)
+            // 10000 => 1万
+            return `${num / 10000}万`
+          },
+        },
       },
     },
     plugins: {
