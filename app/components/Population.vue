@@ -13,7 +13,7 @@ const selectedPopulationType = useLocalStorage('app-selected-population-type', '
   <section class="bg-light-4 p-6 pt-3 -mx-6 sm:rounded-2xl dark:bg-dark-8 sm:p-8 sm:pt-4">
     <header class="p-6">
       <h2 class="h2">
-        総人口推移グラフ
+        人口推移グラフ
       </h2>
     </header>
     <PopulationTypeSelect v-model:selected="selectedPopulationType" />
@@ -31,7 +31,7 @@ const selectedPopulationType = useLocalStorage('app-selected-population-type', '
       <template #fallback>
         <div class="h-100 flex flex-col items-center justify-center text-gray-4">
           <span class="i-ph-person-arms-spread mb-3 animate-bounce text-3xl" />
-          <p>読み込み中...</p>
+          <p data-testid="loading-text">読み込み中...</p>
         </div>
       </template>
     </Suspense>
