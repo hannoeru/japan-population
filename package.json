@@ -36,11 +36,24 @@
     "eslint": "^9.9.1",
     "eslint-plugin-format": "^0.1.2",
     "happy-dom": "14",
+    "lint-staged": "^15.2.10",
     "nuxt": "^3.13.0",
     "playwright-core": "^1.46.1",
+    "simple-git-hooks": "^2.11.1",
     "typescript": "^5.5.4",
     "unocss": "^0.62.3",
     "vitest": "^2.0.5",
     "vue-tsc": "^2.1.4"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "vitest related --run"
+    ],
+    "*": [
+      "eslint --fix"
+    ]
   }
 }
