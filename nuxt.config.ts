@@ -49,4 +49,11 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: '',
   },
+
+  nitro: {
+    rollupConfig: {
+      // prevent external dependencies from being bundled
+      external: ['@antfu/eslint-config'],
+    },
+  },
 })
