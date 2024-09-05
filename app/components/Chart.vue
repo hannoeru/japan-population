@@ -24,8 +24,8 @@ const colorMode = useColorMode()
 // set default chart.js color
 ChartJS.defaults.borderColor = '#0d9488'
 // update chart.js default color based on color mode
-watch(() => colorMode.preference, () => {
-  ChartJS.defaults.color = colorMode.preference === 'dark' ? '#FFF' : '#000'
+watch(() => colorMode.value, () => {
+  ChartJS.defaults.color = colorMode.value === 'dark' ? '#FFF' : '#000'
 }, {
   immediate: true,
 })

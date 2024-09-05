@@ -1,15 +1,15 @@
-import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { Line } from 'vue-chartjs'
+import { mount } from '@vue/test-utils'
 import { Chart as ChartJS } from 'chart.js'
+import { describe, expect, it, vi } from 'vitest'
+import { Line } from 'vue-chartjs'
 import Chart from './Chart.vue'
 
 // Create a hoisted mock for useDark
 const { useColorModeMock } = vi.hoisted(() => {
   return {
     useColorModeMock: vi.fn().mockImplementation(() => {
-      return { preference: 'dark' }
+      return { value: 'dark' }
     }),
   }
 })
@@ -91,7 +91,7 @@ describe('chart', () => {
   it('uses dark theme when useColorMode.preference is dark', () => {
     useColorModeMock.mockImplementation(() => {
       return {
-        preference: 'dark',
+        value: 'dark',
       }
     })
 
@@ -108,7 +108,7 @@ describe('chart', () => {
   it('uses light theme when useColorMode.preference is light', () => {
     useColorModeMock.mockImplementation(() => {
       return {
-        preference: 'light',
+        value: 'light',
       }
     })
 
