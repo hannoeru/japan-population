@@ -30,15 +30,11 @@ const loading = ref(false)
     >
       都道府県を選択してください
     </div>
-    <Suspense v-else>
-      <PopulationChart
-        v-model:loading="loading"
-        :selected-prefectures="selectedPrefectures"
-        :selected-population-type="selectedPopulationType"
-      />
-      <template #fallback>
-        <PopulationLoading />
-      </template>
-    </Suspense>
+    <PopulationChart
+      v-else
+      v-model:loading="loading"
+      :selected-prefectures="selectedPrefectures"
+      :selected-population-type="selectedPopulationType"
+    />
   </section>
 </template>

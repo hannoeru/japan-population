@@ -1,11 +1,9 @@
-import { describe, expect, it, vi } from 'vitest'
+import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import Population from './Population.vue'
 
-// Mock the useLocalStorage composable
-vi.mock('#imports', () => ({
-  useLocalStorage: vi.fn(() => ({ value: '総人口' })),
-}))
+mockNuxtImport('useLocalStorage', () => () => '総人口')
 
 // Stub global components
 const globalComponentStubs = {
