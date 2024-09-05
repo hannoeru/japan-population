@@ -6,9 +6,11 @@ const props = defineProps<{
 
 const { selectedPrefectures, selectedPopulationType } = toRefs(props)
 
+const debouncedSelectedPrefectures = refDebounced(selectedPrefectures, 100)
+
 const { data: populations, error: populationsError } = await useFetch('/api/populations', {
   query: {
-    prefCodes: selectedPrefectures,
+    prefCodes: debouncedSelectedPrefectures,
   },
 })
 
