@@ -9,7 +9,7 @@ const props = defineProps<{
 const { selectedPrefectures, selectedPopulationType } = toRefs(props)
 
 const populations = ref<Population[]>([])
-const showPrefectures = computed(() => {
+const showPopulations = computed(() => {
   return populations.value.filter(population => selectedPrefectures.value.includes(population.prefCode))
 })
 
@@ -29,10 +29,9 @@ watchDebounced(selectedPrefectures, async (selected) => {
       query: {
         prefCodes: extraSelected,
       },
-      onRequestError: (ctx) => {
-        console.error(ctx.error)
-        populationsError.value = ctx.error
-      },
+    }).catch((error: Error) => {
+      populationsError.value = error
+      return []
     })
     populations.value.push(...extraPopulations)
   }
@@ -42,7 +41,7 @@ watchDebounced(selectedPrefectures, async (selected) => {
   immediate: true,
 })
 
-const { data, options, ariaLabel } = usePopulationChart(showPrefectures, selectedPopulationType)
+const { data, options, ariaLabel } = usePopulationChart(showPopulations, selectedPopulationType)
 </script>
 
 <template>

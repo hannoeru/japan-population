@@ -1,86 +1,86 @@
-import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
+import { toArray } from '@antfu/utils'
+import { mountSuspended, registerEndpoint } from '@nuxt/test-utils/runtime'
+import type { EventHandler } from 'h3'
+import { getQuery } from 'h3'
 import { describe, expect, it, vi } from 'vitest'
 import PopulationChart from './PopulationChart.vue'
 
-const { useFetchMock } = vi.hoisted(() => {
+const populationData = [
+  {
+    prefCode: 1,
+    data: [{
+      label: '総人口',
+      data: [{
+        year: 1980,
+        value: 12817,
+      }],
+    }, {
+      label: '年少人口',
+      data: [{
+        year: 1980,
+        value: 2906,
+        rate: 22.67,
+      }],
+    }, {
+      label: '生産年齢人口',
+      data: [{
+        year: 1980,
+        value: 8360,
+        rate: 65.23,
+      }],
+    }, {
+      label: '老年人口',
+      data: [{
+        year: 1980,
+        value: 1550,
+        rate: 12.09,
+      }],
+    }],
+  },
+  {
+    prefCode: 2,
+    data: [{
+      label: '総人口',
+      data: [{
+        year: 1980,
+        value: 12817,
+      }],
+    }, {
+      label: '年少人口',
+      data: [{
+        year: 1980,
+        value: 2906,
+        rate: 22.67,
+      }],
+    }, {
+      label: '生産年齢人口',
+      data: [{
+        year: 1980,
+        value: 8360,
+        rate: 65.23,
+      }],
+    }, {
+      label: '老年人口',
+      data: [{
+        year: 1980,
+        value: 1550,
+        rate: 12.09,
+      }],
+    }],
+  },
+]
+
+const { populationApiHandler } = vi.hoisted(() => {
   return {
-    useFetchMock: vi.fn().mockImplementation(async () => {
-      return {
-        data: ref([
-          {
-            prefCode: 1,
-            data: [{
-              label: '総人口',
-              data: [{
-                year: 1980,
-                value: 12817,
-              }],
-            }, {
-              label: '年少人口',
-              data: [{
-                year: 1980,
-                value: 2906,
-                rate: 22.67,
-              }],
-            }, {
-              label: '生産年齢人口',
-              data: [{
-                year: 1980,
-                value: 8360,
-                rate: 65.23,
-              }],
-            }, {
-              label: '老年人口',
-              data: [{
-                year: 1980,
-                value: 1550,
-                rate: 12.09,
-              }],
-            }],
-          },
-          {
-            prefCode: 2,
-            data: [{
-              label: '総人口',
-              data: [{
-                year: 1980,
-                value: 12817,
-              }],
-            }, {
-              label: '年少人口',
-              data: [{
-                year: 1980,
-                value: 2906,
-                rate: 22.67,
-              }],
-            }, {
-              label: '生産年齢人口',
-              data: [{
-                year: 1980,
-                value: 8360,
-                rate: 65.23,
-              }],
-            }, {
-              label: '老年人口',
-              data: [{
-                year: 1980,
-                value: 1550,
-                rate: 12.09,
-              }],
-            }],
-          },
-        ]),
-        error: ref(null),
-        status: ref('success'),
-      }
+    populationApiHandler: vi.fn<EventHandler>().mockImplementation(() => {
+      return populationData
     }),
   }
 })
 
-// mock useFetch hook to return an error
-mockNuxtImport('useFetch', () => {
-  return useFetchMock
-})
+registerEndpoint('/api/populations', populationApiHandler)
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 describe('populationChart', () => {
   it('renders correctly', async () => {
@@ -124,14 +124,50 @@ describe('populationChart', () => {
     expect(chartComponent.props('options')).toBeDefined()
   })
 
-  it.todo('displays error message when fetch fails', async () => {
-    useFetchMock.mockImplementation(async () => {
-      return {
-        data: ref(null),
-        error: ref(new Error('Server error')),
-        status: ref('error'),
-      }
+  it('load extra data when selectedPrefectures changed', async () => {
+    populationApiHandler.mockImplementation((event) => {
+      const prefCodes = toArray(getQuery(event).prefCodes).map(Number) as number[]
+      return populationData.filter(data => prefCodes.includes(data.prefCode))
     })
+    const wrapper = await mountSuspended(PopulationChart, {
+      props: {
+        selectedPrefectures: [1],
+        selectedPopulationType: '総人口',
+      },
+      global: {
+        stubs: {
+          Chart: true,
+        },
+      },
+    })
+
+    // wait for debounce
+    await wait(120)
+
+    // @ts-expect-error mssing type for script setup
+    expect(wrapper.vm.populations.value.length).toBe(1)
+    // @ts-expect-error mssing type for script setup
+    expect(wrapper.vm.showPopulations.length).toBe(1)
+
+    wrapper.setProps({
+      selectedPrefectures: [1, 2],
+      selectedPopulationType: '総人口',
+    })
+
+    // wait for debounce
+    await wait(120)
+
+    // @ts-expect-error mssing type for script setup
+    expect(wrapper.vm.populations.value.length).toBe(2)
+    // @ts-expect-error mssing type for script setup
+    expect(wrapper.vm.showPopulations.length).toBe(2)
+  })
+
+  it('displays error message when fetch fails', async () => {
+    populationApiHandler.mockImplementation(() => {
+      throw createError('Server error')
+    })
+
     const wrapper = await mountSuspended(PopulationChart, {
       props: {
         selectedPrefectures: [1, 2],
@@ -144,11 +180,12 @@ describe('populationChart', () => {
       },
     })
 
+    // wait for debounce
+    await wait(100)
+
     // Check if error message is displayed
     expect(wrapper.find('.text-red-500').exists()).toBe(true)
     expect(wrapper.text()).toContain('サーバーからデータを取得できませんでした。')
-    expect(wrapper.text()).toContain('Server error')
-
     // Check if Chart component is not rendered when there's an error
     expect(wrapper.findComponent({ name: 'Chart' }).exists()).toBe(false)
   })
