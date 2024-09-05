@@ -1,4 +1,4 @@
-import { toArray } from '@antfu/eslint-config'
+import { toArray } from '@antfu/utils'
 import { fetchPopulation } from '../utils/resas'
 import type { Population } from '~~/types/api'
 

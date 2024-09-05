@@ -54,10 +54,6 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    rollupConfig: {
-      // prevent external dependencies from being bundled
-      external: ['@antfu/eslint-config'],
-    },
     routeRules: {
       '/': {
         prerender: true,
