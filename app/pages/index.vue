@@ -40,7 +40,7 @@ const selectedPrefectures = computed<number[]>({
         都道府県別人口推移グラフ
       </h1>
     </header>
-    <PrefectureSelects v-model:selected="selectedPrefectures" :prefectures="prefectures!" />
-    <Population :prefectures="prefectures!" :selected-prefectures="selectedPrefectures" />
+    <PrefectureSelects :prefectures="prefectures!" v-model:selected="selectedPrefectures" />
+    <Population :selected-prefectures="selectedPrefectures" />
   </main>
 </template>

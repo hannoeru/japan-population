@@ -6,13 +6,13 @@ import type { Prefecture } from '~~/types/resas'
 
 describe('usePopulationChart', () => {
   let populations: Ref<Population[]>
-  let prefectures: Ref<Prefecture[]>
   let selectedPopulationTarget: Ref<string>
 
   beforeEach(() => {
     populations = ref([
       {
         prefCode: 1,
+        prefName: 'Hokkaido',
         data: [
           {
             label: 'Total Population',
@@ -25,15 +25,11 @@ describe('usePopulationChart', () => {
       },
     ])
 
-    prefectures = ref([
-      { prefCode: 1, prefName: 'Hokkaido' },
-    ])
-
     selectedPopulationTarget = ref('Total Population')
   })
 
   it('should return correct chart data', () => {
-    const { data } = usePopulationChart(populations, prefectures, selectedPopulationTarget)
+    const { data } = usePopulationChart(populations, selectedPopulationTarget)
 
     expect(data.value).toEqual({
       labels: [2015, 2020],
@@ -50,7 +46,7 @@ describe('usePopulationChart', () => {
   })
 
   it('should return correct options', () => {
-    const { options } = usePopulationChart(populations, prefectures, selectedPopulationTarget)
+    const { options } = usePopulationChart(populations, selectedPopulationTarget)
 
     expect(options).toMatchObject({
       responsive: true,
@@ -63,7 +59,7 @@ describe('usePopulationChart', () => {
   })
 
   it('should return correct ariaLabel', () => {
-    const { ariaLabel } = usePopulationChart(populations, prefectures, selectedPopulationTarget)
+    const { ariaLabel } = usePopulationChart(populations, selectedPopulationTarget)
 
     expect(ariaLabel.value).toBe('Japan population in Hokkaido prefectures from 2015 to 2020')
   })

@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import type { Prefecture } from '~~/types/resas'
-
 const props = defineProps<{
-  prefectures: Prefecture[]
   selectedPrefectures: number[]
   selectedPopulationType: string
 }>()
 
-const { selectedPrefectures, selectedPopulationType, prefectures } = toRefs(props)
+const { selectedPrefectures, selectedPopulationType } = toRefs(props)
 
 const { data: populations, error: populationsError } = await useFetch('/api/populations', {
   query: {
@@ -15,7 +12,7 @@ const { data: populations, error: populationsError } = await useFetch('/api/popu
   },
 })
 
-const { data, options, ariaLabel } = usePopulationChart(populations, prefectures, selectedPopulationType)
+const { data, options, ariaLabel } = usePopulationChart(populations, selectedPopulationType)
 </script>
 
 <template>

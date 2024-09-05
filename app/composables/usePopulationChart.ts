@@ -4,7 +4,6 @@ import type { Prefecture } from '~~/types/resas'
 
 export function usePopulationChart(
   populations: Ref<Population[] | undefined>,
-  prefectures: Ref<Prefecture[]>,
   selectedPopulationType: Ref<string>,
 ) {
   const options: ChartOptions<'line'> = {
@@ -29,7 +28,7 @@ export function usePopulationChart(
   const data = computed<ChartData<'line'>>(() => ({
     labels: populations.value?.[0]?.data[0]?.data?.map(data => data.year),
     datasets: populations.value?.map(population => ({
-      label: prefectures.value.find(prefecture => prefecture.prefCode === population.prefCode)?.prefName,
+      label: population.prefName,
       data: population.data.find(data => selectedPopulationType.value.includes(data.label))?.data.map(data => ({
         x: data.year,
         y: data.value,

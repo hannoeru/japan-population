@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Prefecture } from '~~/types/resas'
 
-const props = defineProps<{
+defineProps<{
   prefectures: Prefecture[]
 }>()
 
@@ -14,7 +14,7 @@ const selected = defineModel('selected', {
 <template>
   <section>
     <div class="grid grid-cols-3 gap-1 px-2 md:grid-cols-5 sm:px-4 sm:pl-8">
-      <template v-for="prefecture of props.prefectures" :key="prefecture.prefCode">
+      <template v-for="prefecture of prefectures" :key="prefecture.prefCode">
         <Checkbox
           :id="`prefecture-${prefecture.prefCode}`"
           v-model="selected"

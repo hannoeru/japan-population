@@ -18,7 +18,6 @@ describe('population', () => {
   it('renders correctly with selected prefectures', () => {
     const wrapper = mount(Population, {
       props: {
-        prefectures: [{ prefCode: 1, prefName: 'Tokyo' }],
         selectedPrefectures: [1],
       },
       global: {

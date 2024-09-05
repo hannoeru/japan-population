@@ -15,6 +15,7 @@ export default defineCachedEventHandler(async (event) => {
   }
 
   const prefCodes = toArray(query.prefCodes)
+  const prefectures = await $fetch('/api/prefectures')
 
   const results: Population[] = []
 
@@ -22,6 +23,7 @@ export default defineCachedEventHandler(async (event) => {
     const population = await fetchPopulation(event, code)
     results.push({
       prefCode: Number(code),
+      prefName: prefectures.find(pref => pref.prefCode === Number(code))?.prefName || '',
       data: population,
     })
   }

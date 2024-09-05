@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type { Prefecture } from '~~/types/resas'
-
 defineProps<{
-  prefectures: Prefecture[]
   selectedPrefectures: number[]
 }>()
 
@@ -28,7 +25,8 @@ const selectedPopulationType = useLocalStorage('app-selected-population-type', '
     </div>
     <Suspense v-else>
       <PopulationChart
-        :prefectures="prefectures" :selected-prefectures="selectedPrefectures" :selected-population-type="selectedPopulationType"
+        :selected-prefectures="selectedPrefectures"
+        :selected-population-type="selectedPopulationType"
       />
       <template #fallback>
         <div class="h-100 flex flex-col items-center justify-center text-gray-4">

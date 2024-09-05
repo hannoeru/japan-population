@@ -1,5 +1,5 @@
-import { mockNuxtImport, mountSuspended, registerEndpoint } from '@nuxt/test-utils/runtime'
-import { describe, expect, it, vi } from 'vitest'
+import { mountSuspended, registerEndpoint } from '@nuxt/test-utils/runtime'
+import { describe, expect, it } from 'vitest'
 import PopulationChart from './PopulationChart.vue'
 
 registerEndpoint('/api/populations', () => [
@@ -37,15 +37,9 @@ registerEndpoint('/api/populations', () => [
 ])
 
 describe('populationChart', () => {
-  const mockPrefectures = [
-    { prefCode: 1, prefName: 'Tokyo' },
-    { prefCode: 2, prefName: 'Osaka' },
-  ]
-
   it('renders correctly', async () => {
     const wrapper = await mountSuspended(PopulationChart, {
       props: {
-        prefectures: mockPrefectures,
         selectedPrefectures: [1, 2],
         selectedPopulationType: 'total',
       },
@@ -66,7 +60,6 @@ describe('populationChart', () => {
   it.todo('displays error message when fetch fails', async () => {
     const wrapper = await mountSuspended(PopulationChart, {
       props: {
-        prefectures: mockPrefectures,
         selectedPrefectures: [1, 2],
         selectedPopulationType: 'total',
       },
@@ -89,7 +82,6 @@ describe('populationChart', () => {
   it('passes correct props to Chart component', async () => {
     const wrapper = await mountSuspended(PopulationChart, {
       props: {
-        prefectures: mockPrefectures,
         selectedPrefectures: [1, 2],
         selectedPopulationType: 'total',
       },
