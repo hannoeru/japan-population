@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Line } from 'vue-chartjs'
-import { CategoryScale, Chart as ChartJS, Colors, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from 'chart.js'
 import type { ChartData, ChartOptions } from 'chart.js'
+import { CategoryScale, Chart as ChartJS, Colors, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from 'chart.js'
+import { Line } from 'vue-chartjs'
 
 const props = defineProps<{
   data: ChartData<'line'>
@@ -21,13 +21,16 @@ ChartJS.register(
 
 const colorMode = useColorMode()
 
+// set default chart.js color
 ChartJS.defaults.borderColor = '#0d9488'
+// update chart.js default color based on color mode
 watch(() => colorMode.preference, () => {
   ChartJS.defaults.color = colorMode.preference === 'dark' ? '#FFF' : '#000'
 }, {
   immediate: true,
 })
 
+// force re-render chart.js to show correct chart colors
 const key = computed(() => `${JSON.stringify(props.data)}${colorMode.preference}`)
 </script>
 
