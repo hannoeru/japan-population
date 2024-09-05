@@ -4,7 +4,11 @@ useHead({
     lang: 'ja',
   },
   link: [
-    { rel: 'icon', href: '/favicon.ico' },
+    {
+      rel: 'icon',
+      type: 'image/svg+xml',
+      href: '/favicon.svg',
+    },
   ],
 })
 </script>
