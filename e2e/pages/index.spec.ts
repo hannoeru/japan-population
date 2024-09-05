@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest'
 import { createPage, setup } from '@nuxt/test-utils/e2e'
 import type { ChartData } from 'chart.js'
+import type { Response } from 'playwright-core'
+import { describe, expect, it } from 'vitest'
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -9,6 +10,13 @@ describe('index page e2e', async () => {
     // Require Nuxt dev server to be running
     host: 'http://localhost:3000',
     browser: true,
+    // for debugging
+    // browserOptions: {
+    //   type: 'chromium',
+    //   launch: {
+    //     headless: false,
+    //   },
+    // },
   })
 
   let chartData: ChartData<'line'> | undefined
@@ -23,10 +31,15 @@ describe('index page e2e', async () => {
     })
   }
 
-  async function clickPrefecture(page: Page, prefName: string) {
-    const res = page.waitForResponse('**/api/populations**')
+  async function clickPrefecture(page: Page, prefName: string, waitResponse = true) {
+    let res: Promise<Response> | undefined
+    if (waitResponse) {
+      res = page.waitForResponse('**/api/populations**')
+    }
     await page.getByRole('checkbox', { name: prefName }).click()
-    await res
+    if (waitResponse) {
+      await res
+    }
     await refreshChartData(page)
   }
 
@@ -60,7 +73,7 @@ describe('index page e2e', async () => {
     /**
      * unselect 北海道
      */
-    await clickPrefecture(page, '北海道')
+    await clickPrefecture(page, '北海道', false)
 
     expect(chartData?.datasets.length).toBe(1)
     expect(chartData?.datasets[0]?.label).toBe('東京都')

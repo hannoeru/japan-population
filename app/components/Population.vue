@@ -7,11 +7,18 @@ const selectedPopulationType = useLocalStorage('app-selected-population-type', '
   // prevent hydration mismatch error
   initOnMounted: true,
 })
+
+const loading = ref(false)
 </script>
 
 <template>
   <section class="bg-light-4 p-6 pt-3 -mx-6 sm:rounded-2xl dark:bg-dark-8 sm:p-8 sm:pt-4">
-    <header class="p-6">
+    <header class="flex items-center justify-center gap-2 p-6">
+      <span
+        class="i-ph-person-arms-spread text-xl" :class="{
+          'animate-spin': loading,
+        }"
+      />
       <h2 class="h2">
         人口推移グラフ
       </h2>
@@ -25,16 +32,12 @@ const selectedPopulationType = useLocalStorage('app-selected-population-type', '
     </div>
     <Suspense v-else>
       <PopulationChart
+        v-model:loading="loading"
         :selected-prefectures="selectedPrefectures"
         :selected-population-type="selectedPopulationType"
       />
       <template #fallback>
-        <div class="h-100 flex flex-col items-center justify-center text-gray-4">
-          <span class="i-ph-person-arms-spread mb-3 animate-bounce text-3xl" />
-          <p data-testid="loading-text">
-            読み込み中...
-          </p>
-        </div>
+        <PopulationLoading />
       </template>
     </Suspense>
   </section>

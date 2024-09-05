@@ -23,7 +23,7 @@ export default defineCachedEventHandler(async (event) => {
     const population = await fetchPopulation(event, code)
     results.push({
       prefCode: Number(code),
-      prefName: prefectures.find(pref => pref.prefCode === Number(code))?.prefName || '',
+      prefName: prefectures.find(pref => pref.prefCode === Number.parseInt(code, 10))?.prefName || '',
       data: population,
     })
   }

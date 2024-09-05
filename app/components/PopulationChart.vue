@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Population } from '~~/types/api'
+
 const props = defineProps<{
   selectedPrefectures: number[]
   selectedPopulationType: string
@@ -6,15 +8,41 @@ const props = defineProps<{
 
 const { selectedPrefectures, selectedPopulationType } = toRefs(props)
 
-const debouncedSelectedPrefectures = refDebounced(selectedPrefectures, 100)
-
-const { data: populations, error: populationsError } = await useFetch('/api/populations', {
-  query: {
-    prefCodes: debouncedSelectedPrefectures,
-  },
+const populations = ref<Population[]>([])
+const showPrefectures = computed(() => {
+  return populations.value.filter(population => selectedPrefectures.value.includes(population.prefCode))
 })
 
-const { data, options, ariaLabel } = usePopulationChart(populations, selectedPopulationType)
+const loading = defineModel('loading', {
+  type: Boolean,
+  default: false,
+})
+
+const populationsError = ref<Error | null>(null)
+
+watchDebounced(selectedPrefectures, async (selected) => {
+  loading.value = true
+  const extraSelected = selected.filter(prefCode => !populations.value?.some(population => population.prefCode === prefCode))
+
+  if (extraSelected.length) {
+    const extraPopulations = await $fetch('/api/populations', {
+      query: {
+        prefCodes: extraSelected,
+      },
+      onRequestError: (ctx) => {
+        console.error(ctx.error)
+        populationsError.value = ctx.error
+      },
+    })
+    populations.value.push(...extraPopulations)
+  }
+  loading.value = false
+}, {
+  debounce: 100,
+  immediate: true,
+})
+
+const { data, options, ariaLabel } = usePopulationChart(showPrefectures, selectedPopulationType)
 </script>
 
 <template>
@@ -22,9 +50,6 @@ const { data, options, ariaLabel } = usePopulationChart(populations, selectedPop
     <div v-if="populationsError" class="h-full flex flex-col items-center justify-center">
       <span class="i-ph-warning-circle mb-3 text-3xl text-red-500" />
       <p>サーバーからデータを取得できませんでした。</p>
-      <p v-if="populationsError.message">
-        {{ populationsError.message }}
-      </p>
     </div>
     <Chart v-else :data="data" :options="options" />
   </div>

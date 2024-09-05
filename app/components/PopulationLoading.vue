@@ -1,0 +1,8 @@
+<template>
+  <div class="h-100 flex flex-col items-center justify-center text-gray-4">
+    <span class="i-ph-person-arms-spread mb-3 animate-bounce text-3xl" />
+    <p data-testid="loading-text">
+      読み込み中...
+    </p>
+  </div>
+</template>
