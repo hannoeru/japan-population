@@ -45,7 +45,7 @@ const { data, options, ariaLabel } = usePopulationChart(showPopulations, selecte
 </script>
 
 <template>
-  <div class="h-100" :aria-label="ariaLabel">
+  <div class="h-100 -ml-4" :aria-label="ariaLabel">
     <div v-if="populationsError" class="h-full flex flex-col items-center justify-center">
       <span class="i-ph-warning-circle mb-3 text-3xl text-red-500" />
       <p>サーバーからデータを取得できませんでした。</p>
