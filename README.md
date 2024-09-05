@@ -1,23 +1,17 @@
-# Nuxt 3 Minimal Starter
+# 都道府県別人口推移グラフ
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+- 都道府県にチェックを入れると、RESAS APIから選択された都道府県の「人口構成」が表示されます。
+- 「総人口」「年少人口」「生産年齢人口」「老年人口」をクリックすると表示するグラフデータを切り替えられます。
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
+# using corepage for package manager management
+corepack enable
+# install dependencies
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -25,17 +19,41 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
+pnpm run dev
+```
 
-# pnpm
+## Testing
+
+Running test:
+
+> [!WARNING]
+> Will required a running dev server for all e2e tests.
+> Because currently nuxt testing tool didn't have support on cloudflare build. [issue](https://github.com/nuxt/test-utils/issues/934)
+
+```bash
+# run dev server (required for e2e test)
 pnpm run dev
 
-# yarn
-yarn dev
+# run all tests (including e2e test)
+pnpm run test
 
-# bun
-bun run dev
+# run tests without e2e tests
+pnpm run test --exclude=e2e
+
+# type check
+pnpm run typecheck
+```
+
+## Lint and format
+
+All lint and format is done by ESLint, no require for other formatting tools.
+
+```bash
+# run lint and format
+pnpm run lint
+
+# run with auto fix
+pnpm run lint:fix
 ```
 
 ## Production
@@ -43,33 +61,13 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
 pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
 pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
