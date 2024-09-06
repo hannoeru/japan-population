@@ -24,14 +24,7 @@ const loading = ref(false)
       </h2>
     </header>
     <PopulationTypeSelect v-model:selected="selectedPopulationType" />
-    <div
-      v-if="!selectedPrefectures.length"
-      class="h-100 flex flex-col items-center justify-center text-gray-4"
-    >
-      都道府県を選択してください
-    </div>
     <PopulationChart
-      v-else
       v-model:loading="loading"
       :selected-prefectures="selectedPrefectures"
       :selected-population-type="selectedPopulationType"

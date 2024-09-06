@@ -27,20 +27,4 @@ describe('population', () => {
     expect(wrapper.findComponent({ name: 'PopulationTypeSelect' }).exists()).toBe(true)
     expect(wrapper.text()).not.toContain('都道府県を選択してください')
   })
-
-  it('shows message when no prefectures are selected', () => {
-    const wrapper = mount(Population, {
-      props: {
-        prefectures: [],
-        selectedPrefectures: [],
-      },
-      global: {
-        stubs: globalComponentStubs,
-      },
-    })
-
-    expect(wrapper.find('h2').text()).toBe('人口推移グラフ')
-    expect(wrapper.text()).toContain('都道府県を選択してください')
-    expect(wrapper.findComponent({ name: 'PopulationChart' }).exists()).toBe(false)
-  })
 })

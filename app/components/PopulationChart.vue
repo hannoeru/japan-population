@@ -50,6 +50,12 @@ const { data, options, ariaLabel } = usePopulationChart(showPopulations, selecte
       <span class="i-ph-warning-circle mb-3 text-3xl text-red-500" />
       <p>サーバーからデータを取得できませんでした。</p>
     </div>
+    <div
+      v-else-if="!showPopulations.length"
+      class="h-100 flex flex-col items-center justify-center text-gray-4"
+    >
+      {{ loading ? '読み込み中...' : '都道府県を選択してください' }}
+    </div>
     <Chart v-else :data="data" :options="options" />
   </div>
 </template>

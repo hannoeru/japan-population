@@ -96,8 +96,11 @@ describe('populationChart', () => {
       },
     })
 
-    // Check if the Chart component is rendered when there's no error
-    expect(wrapper.findComponent({ name: 'Chart' }).exists()).toBe(true)
+    // Check Chart component is not rendered on init
+    expect(wrapper.findComponent({ name: 'Chart' }).exists()).not.toBe(true)
+
+    // Check init text show
+    expect(wrapper.text()).toContain('都道府県を選択してください')
 
     // Check if error message is not displayed
     expect(wrapper.text()).not.toContain('サーバーからデータを取得できませんでした。')
@@ -115,6 +118,8 @@ describe('populationChart', () => {
         },
       },
     })
+
+    await wait(120)
 
     const chartComponent = wrapper.findComponent({ name: 'Chart' })
     expect(chartComponent.exists()).toBe(true)
