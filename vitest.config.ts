@@ -12,5 +12,8 @@ export default defineVitestConfig({
         return false
       }
     },
+    coverage: {
+      reportsDirectory: '../coverage',
+    },
   },
 })
