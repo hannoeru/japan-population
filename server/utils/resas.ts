@@ -1,5 +1,5 @@
-import type { H3Event } from 'h3'
 import type { PopulationCompositionResponse } from '~~/types/resas'
+import type { H3Event } from 'h3'
 
 let _resasClient: typeof $fetch
 

@@ -1,5 +1,5 @@
-import type { H3Event } from 'h3'
 import type { PrefecturesResponse } from '~~/types/resas'
+import type { H3Event } from 'h3'
 
 export default defineCachedEventHandler(async (event) => {
   const resasClient = useResasClient(event)

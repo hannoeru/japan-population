@@ -1,7 +1,7 @@
 import { createPage, setup } from '@nuxt/test-utils/e2e'
+import { describe, expect, it } from 'vitest'
 import type { ChartData } from 'chart.js'
 import type { Response } from 'playwright-core'
-import { describe, expect, it } from 'vitest'
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 

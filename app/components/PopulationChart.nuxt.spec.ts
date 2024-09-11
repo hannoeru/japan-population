@@ -1,8 +1,8 @@
 import { toArray } from '@antfu/utils'
 import { mountSuspended, registerEndpoint } from '@nuxt/test-utils/runtime'
-import type { EventHandler } from 'h3'
 import { getQuery } from 'h3'
 import { describe, expect, it, vi } from 'vitest'
+import type { EventHandler } from 'h3'
 import PopulationChart from './PopulationChart.vue'
 
 const populationData = [

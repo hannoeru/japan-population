@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ChartData, ChartOptions } from 'chart.js'
-import { CategoryScale, Chart as ChartJS, Colors, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from 'chart.js'
+import { CategoryScale, Chart as ChartJS, Colors, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js'
 import { Line } from 'vue-chartjs'
+import type { ChartData, ChartOptions } from 'chart.js'
 
 const props = defineProps<{
   data: ChartData<'line'>

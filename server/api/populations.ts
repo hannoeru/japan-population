@@ -1,6 +1,6 @@
 import { toArray } from '@antfu/utils'
-import { fetchPopulation } from '../utils/resas'
 import type { Population } from '~~/types/api'
+import { fetchPopulation } from '../utils/resas'
 
 export default defineCachedEventHandler(async (event) => {
   const query = getQuery<{

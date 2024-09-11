@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { ref } from 'vue'
-import { usePopulationChart } from './usePopulationChart'
 import type { Population } from '~~/types/api'
+import { usePopulationChart } from './usePopulationChart'
 
 describe('usePopulationChart', () => {
   let populations: Ref<Population[]>

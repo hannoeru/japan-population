@@ -1,5 +1,5 @@
-import type { ChartData, ChartOptions } from 'chart.js'
 import type { Population } from '~~/types/api'
+import type { ChartData, ChartOptions } from 'chart.js'
 
 export function usePopulationChart(
   populations: Ref<Population[] | undefined>,
