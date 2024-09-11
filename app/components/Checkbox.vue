@@ -13,7 +13,7 @@ const model = defineModel()
       <input :id="props.id" v-model="model" :value="props.value" type="checkbox" class="checkbox">
     </div>
     <div class="ms-3 flex flex-col">
-      <label :for="props.id" class="text-md text-gray-700 font-medium dark:text-gray-200">
+      <label :for="props.id" class="text-md cursor-pointer text-gray-700 font-medium dark:text-gray-200">
         {{ props.label }}
       </label>
     </div>
